@@ -51,9 +51,13 @@ format_error(Reason) ->
 
 find_templates(TmplInfo) ->
     [ {OutDir,
-       filelib:wildcard(filename:join(TmplDir, "*.rdtl"))}
+       templates_in_dir(TmplDir)}
       || {TmplDir, OutDir} <- TmplInfo ].
 
+templates_in_dir(Dir) ->
+    TemplateFiles = filelib:wildcard(filename:join(Dir, "*.rdtl")),
+    [ F || F <- TemplateFiles,
+           hd(filename:basename(F,".rdtl")) =/= $. ].
 
 app_template_info(App) ->
     {filename:join([rebar_app_info:dir(App),
