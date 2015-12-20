@@ -66,7 +66,7 @@ compile_templates(TmplInfo, State) ->
                   || {OutDir, Templates} <- TmplInfo,
                      Template <- Templates]).
 
-compile_template(Template, OutDir, State) ->
+compile_template(Template, OutDir, _State) ->
     ModuleName = list_to_atom(filename:basename(Template, ".rdtl")),
     ?INFO("Compiling template ~p", [ModuleName]),
     erlydtl:compile_file(Template, ModuleName,
